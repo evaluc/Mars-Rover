@@ -10,14 +10,20 @@ describe("Rover class", function() {
 
   //Test 7
   test("constructor sets position and default values for mode and generatorWatts", function() {
-    let testRover = new Rover(98382)
+    let testRover = new Rover(98382);
 
     expect(testRover.position).toBe(98382);
     expect(testRover.mode).toBe('NORMAL');
     expect(testRover.generatorWatts).toBe(110);
   });
   //Test 8
-  test("test 8 placeholder", function() {
+  test("response returned by receiveMessage contains the name of the message", function() {
+    let testCommands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let testMessage = new Message('Test message with commands', testCommands);
+    let testRover = new Rover(98382);
+    let testResponse = testRover.receiveMessage(testMessage);
+
+    expect(testResponse.message).toBe(testMessage.name);
 
   });
   //Test 9
