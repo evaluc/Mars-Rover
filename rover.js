@@ -8,7 +8,7 @@ class Rover {
       let heardMessage = message;
       let roverResponse = {
          message: heardMessage.name,
-         results: [],
+         results: heardMessage.commands,
       };
 
       return roverResponse;

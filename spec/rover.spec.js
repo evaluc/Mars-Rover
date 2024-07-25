@@ -27,8 +27,14 @@ describe("Rover class", function() {
 
   });
   //Test 9
-  test("test 9 placeholder", function() {
-
+  test("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
+    let testCommands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let testMessage = new Message('Test message with commands', testCommands);
+    let testRover = new Rover(98382);
+    let testResponse = testRover.receiveMessage(testMessage);
+    
+    if (testCommands.length === 2)
+      expect(testResponse['results'].length).toBe(2);
   });
   //Test 10
   test("test 10 placeholder", function() {
