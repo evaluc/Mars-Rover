@@ -8,6 +8,33 @@ const Command = require('../command.js');
 
 describe("Rover class", function() {
 
-  // 7 tests here!
+  //Test 7
+  test("test 7 placeholder", function() {
+
+  });
+  //Test 8
+  test("test 8 placeholder", function() {
+
+  });
+  //Test 9
+  test("test 9 placeholder", function() {
+
+  });
+  //Test 10
+  test("test 10 placeholder", function() {
+
+  });
+  //Test 11
+  test("test 11 placeholder", function() {
+
+  });
+  //Test 12
+  test("test 12 placeholder", function() {
+
+  });
+  //Test 13
+  test("test 13 placeholder", function() {
+
+  });
 
 });
