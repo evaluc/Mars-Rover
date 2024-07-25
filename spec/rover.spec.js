@@ -9,8 +9,12 @@ const Command = require('../command.js');
 describe("Rover class", function() {
 
   //Test 7
-  test("test 7 placeholder", function() {
+  test("constructor sets position and default values for mode and generatorWatts", function() {
+    let testRover = new Rover(98382)
 
+    expect(testRover.position).toBe(98382);
+    expect(testRover.mode).toBe('NORMAL');
+    expect(testRover.generatorWatts).toBe(110);
   });
   //Test 8
   test("test 8 placeholder", function() {
