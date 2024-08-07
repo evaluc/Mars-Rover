@@ -20,32 +20,59 @@ module.exports = Rover;
 */
 class Rover {
    constructor(position) {
-      this.position = position;
       this.mode = 'NORMAL';
       this.generatorWatts = 110;
+      this.position = position;
    }
 
    receiveMessage(message) {
       let heardMessage = message;
-      let returnObj = {
-         message: heardMessage.name,
-         results: [completionStatus, ]
-      }
+      let commandList = heardMessage.commands;
+      //let commandResult = {completed: false,}
+      let resultsArray = [];
+      let roverStatus = {mode: this.mode, generatorWatts: this.generatorWatts, position: this.position};
+      //let replyObj = {message: heardMessage.name, results: resultsArray};
+      let responseObj = {message: heardMessage.name,};
 
-      let commandResult = {
-         completed: false,
-         roverStatus: {mode:, generatorWatts:, position:}
-      }
 
-      if (heardMessage includes STATUS_CHECK)
-         let statusObj = {
-            positions
-            modes
-            watts
+      for (let i = 0; i < commandList.length; i++) {
+         if (commandList[i].commandType === 'STATUS_CHECK') {
+            let commandResult = {
+               completed: true,
+               roverStatus: roverStatus
+            };
+
+            resultsArray.push(commandResult);
+            responseObj['results'] = resultsArray;
+            
          }
-         push to returnObj.results
+         /*
+         else if (commandList[i].commandType === 'MOVE') {
+            let commandResult = {
+               completed: true,
+            };
 
-      /* if (heardMessage includes MODE_CHANGE)
+            resultsArray.push(commandResult);
+            responseObj = {message: heardMessage.name, results: resultsArray};
+         }
+
+         else if (commandList[i].commandType === 'MODE_CHANGE') {
+            let commandResult = {
+               completed: true,
+            };
+
+            resultsArray.push(commandResult);
+            responseObj = {message: heardMessage.name, results: resultsArray};
+         }
+         */
+      }
+      return responseObj;
+   }
+}
+
+module.exports = Rover;
+
+/* if (heardMessage includes MODE_CHANGE)
          update this.mode
          set completed to true
 
@@ -59,8 +86,3 @@ class Rover {
 */
       //I don't think I want to name this roverStatus, 
       //I want a roverStatus object placed in the results array
-      return returnObj;
-   }
-}
-
-module.exports = Rover;

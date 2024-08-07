@@ -32,22 +32,26 @@ describe("Rover class", function() {
     let testMessage = new Message('Test message with commands', testCommands);
     let testRover = new Rover(98382);
     let testResponse = testRover.receiveMessage(testMessage);
-    
+    console.log(testResponse);
+    console.log(testRover.receiveMessage(testMessage).results);
+
     if (testCommands.length === 2)
       expect(testResponse['results'].length).toBe(2);
   });
   //Test 10
   test("responds correctly to the status check command", function() {
-    let testCommand = new Command('STATUS_CHECK');
+    let testCommand = [new Command('STATUS_CHECK')];
     let testMessage = new Message('Status Check Test', testCommand);
     let testRover = new Rover(98382);
     let testStatusCheck = testRover.receiveMessage(testMessage).results;
-    let verifyRoverStatus = testStatusCheck.find({roverStatus});
-
-    expect(testStatusCheck).toEqual(arrayContaining({roverStatus})); //Do I need the brackets to signify it's an object?
-    expect(verifyRoverStatus).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); //Attempt at using operators in tests
-    expect(verifyRoverStatus).toHaveProperty('generatorWatts', expect.any(Number)); //Attempt at checking datatypes for the optional value slot in toHaveProperty
-    expect(verifyRoverStatus).toHaveProperty('position', expect.any(Number));
+    console.log(testStatusCheck[0]);
+    
+    //expect(testStatusCheck).toEqual(expect.arrayContaining([{roverStatus}])); //Do I need the brackets to signify it's an object?
+    expect(typeof testStatusCheck[0]['roverStatus']).toEqual('object');
+    expect(testStatusCheck[0]).toEqual(expect.objectContaining({roverStatus: expect.any(Object)}));
+    expect(testStatusCheck[0]['roverStatus']).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); 
+    expect(testStatusCheck[0]['roverStatus']).toHaveProperty('generatorWatts', expect.any(Number));
+    expect(testStatusCheck[0]['roverStatus']).toHaveProperty('position', expect.any(Number));
   });
   //Test 11
   test("test 11 placeholder", function() {
