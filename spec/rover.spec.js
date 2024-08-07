@@ -37,8 +37,25 @@ describe("Rover class", function() {
       expect(testResponse['results'].length).toBe(2);
   });
   //Test 10
-  test("test 10 placeholder", function() {
+  test("responds correctly to the status check command", function() {
+    let testCommand = new Command('STATUS_CHECK');
+    let testMessage = new Message('Status Check Test', testCommand);
+    let testRover = new Rover(98382);
+    let testStatusCheck = testRover.receiveMessage(testMessage).results;
 
+    //Do I need to typeof this?
+    //To Contain? in the results array?
+    
+    //expect(typeof testStatusCheck).toBe("object");
+    /*This is tricky, I want to check that whatever we name the obj from receiveMessage
+    has a roverStatus obj in the results value array that includes mode, watts, position
+    "Check each of these for accuracy is ambiguous re. mode, watts, position"
+    also includes completed value set to true if command goes through
+    */
+    expect(testStatusCheck).toContain(roverStatus);
+    expect(testStatusCheck).toHaveProperty('mode');
+    expect(testStatusCheck).toHaveProperty('generatorWatts');
+    expect(testStatusCheck).toHaveProperty('position');
   });
   //Test 11
   test("test 11 placeholder", function() {
