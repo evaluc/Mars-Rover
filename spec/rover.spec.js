@@ -32,11 +32,14 @@ describe("Rover class", function() {
     let testMessage = new Message('Test message with commands', testCommands);
     let testRover = new Rover(98382);
     let testResponse = testRover.receiveMessage(testMessage);
+    
+    //TODO - Remove Log Statements, Fix Regression error in Rover.js, since Test 9 doesn't pass as of this moment
     console.log(testResponse);
     console.log(testRover.receiveMessage(testMessage).results);
 
     if (testCommands.length === 2)
-      expect(testResponse['results'].length).toBe(2);
+      expect(testResponse['results'].length).toBe(2)
+
   });
   //Test 10
   test("responds correctly to the status check command", function() {
@@ -44,9 +47,8 @@ describe("Rover class", function() {
     let testMessage = new Message('Status Check Test', testCommand);
     let testRover = new Rover(98382);
     let testStatusCheck = testRover.receiveMessage(testMessage).results;
-    console.log(testStatusCheck[0]);
-    
-    //expect(testStatusCheck).toEqual(expect.arrayContaining([{roverStatus}])); //Do I need the brackets to signify it's an object?
+   
+  //TODO - Refactor these into One Test
     expect(typeof testStatusCheck[0]['roverStatus']).toEqual('object');
     expect(testStatusCheck[0]).toEqual(expect.objectContaining({roverStatus: expect.any(Object)}));
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); 
