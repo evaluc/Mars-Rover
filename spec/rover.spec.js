@@ -56,15 +56,15 @@ describe("Rover class", function() {
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('position', expect.any(Number));
   });
   //Test 11
-  test("test 11 placeholder", function() {
+  test("responds correctly to the mode change command", function() {
 
   });
   //Test 12
-  test("test 12 placeholder", function() {
+  test("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
 
   });
   //Test 13
-  test("test 13 placeholder", function() {
+  test("responds with the position for the move command", function() {
 
   });
 
