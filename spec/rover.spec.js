@@ -48,7 +48,7 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     let testStatusCheck = testRover.receiveMessage(testMessage).results;
    
-  //TODO - Refactor these into One Test
+  //TODO - Refactor these into One Test by modifying line 53 to include lines 54-56 in expectations
     expect(typeof testStatusCheck[0]['roverStatus']).toEqual('object');
     expect(testStatusCheck[0]).toEqual(expect.objectContaining({roverStatus: expect.any(Object)}));
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); 
@@ -57,6 +57,26 @@ describe("Rover class", function() {
   });
   //Test 11
   test("responds correctly to the mode change command", function() {
+    let testCommandPower = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MODE_CHANGE', 'NORMAL')];
+    //let testCommandNormal = [new Command('MODE_CHANGE', 'NORMAL')];
+    let testMessagePower = new Message('Mode Change Test', testCommandPower);
+    //let testMessageNormal = new Message('Mode Change Test Normal', testCommandNormal);
+    let testRover = new Rover(98382);
+    let checkPower = testRover.receiveMessage(testMessagePower);
+    //let checkNormalPower = testRover.receiveMessage(testMessageNormal);
+    console.log(checkPower);
+    //console.log(checkNormalPower);
+
+    expect(checkPower[0]['completed']).toEqual(true);
+    expect(checkPower[0]['roverStatus']).toHaveProperty('mode', expect('LOW_POWER'));
+    expect(checkPower[1]['completed']).toEqual(true);
+    expect(checkPower[1]['roverStatus']).toHaveProperty('mode', expect('NORMAL'));
+
+
+
+    //expect(checkNormalPower[1]).;
+    //expect(checkNormalPower[1]).;
+
 
   });
   //Test 12

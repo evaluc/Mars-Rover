@@ -28,10 +28,8 @@ class Rover {
    receiveMessage(message) {
       let heardMessage = message;
       let commandList = heardMessage.commands;
-      //let commandResult = {completed: false,}
       let resultsArray = [];
       let roverStatus = {mode: this.mode, generatorWatts: this.generatorWatts, position: this.position};
-      //let replyObj = {message: heardMessage.name, results: resultsArray};
       let responseObj = {message: heardMessage.name,};
 
 
