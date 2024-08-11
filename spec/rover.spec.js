@@ -34,10 +34,6 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     let testResponse = testRover.receiveMessage(testMessage);
     
-    //TODO - Remove Log Statements, Fix Regression error in Rover.js, since Test 9 doesn't pass as of this moment
-    console.log(testResponse);
-    console.log(testRover.receiveMessage(testMessage).results);
-
     if (testCommands.length === 2)
       expect(testResponse['results'].length).toBe(2)
 
