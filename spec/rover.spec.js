@@ -96,12 +96,8 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     
     let checkDrainedRover = testRover.receiveMessage(testDrainedMoveMessage);
-    // Alternate access method?
-    // let checkDrainedRover = testRover.receiveMessage(testDrainedMoveMessage).results;
-    // expect(checkDrainedRover[1]['completed']).toEqual(false);
+    
     expect(checkDrainedRover.results[1]['completed']).toEqual(false);
-
-
 
   });
   //Test 13

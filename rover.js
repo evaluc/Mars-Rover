@@ -34,6 +34,7 @@ class Rover {
 
 
       for (let i = 0; i < commandList.length; i++) {
+         //Status Check:
          if (commandList[i].commandType === 'STATUS_CHECK') {
             let commandResult = {
                completed: true,
@@ -45,7 +46,8 @@ class Rover {
          } 
          
          //TODO: add error if mode change isn't low power or normal? Though seems out of scope
-
+         
+         //Mode Change:
          if (commandList[i].commandType === 'MODE_CHANGE') {
             let commandResult = {};
 
@@ -57,23 +59,26 @@ class Rover {
                commandResult['completed'] = true;
             }
 
-           
             resultsArray.push(commandResult);
             responseObj['results'] = resultsArray;
          }
-         /*
-         else if (commandList[i].commandType === 'MOVE') {
-            let commandResult = {
-               completed: true,
-            };
+         //Move Command:
+         if (commandList[i].commandType === 'MOVE') {
+            let commandResult = {};
 
+            if (this.mode === 'LOW_POWER') {
+               commandResult['completed'] = false;
+            } 
+            
             resultsArray.push(commandResult);
-            responseObj = {message: heardMessage.name, results: resultsArray};
-         }
-
-         */
+            responseObj['results'] = resultsArray;
+          }
+            
+         
       }
-      return responseObj;
+        
+
+         return responseObj;
    }
 }
 
@@ -97,3 +102,5 @@ module.exports = Rover;
        /*let commandResult = {
                completed: true,
             };*/
+
+            // responseObj = {message: heardMessage.name, results: resultsArray};
