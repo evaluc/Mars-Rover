@@ -53,9 +53,12 @@ class Rover {
 
             if (commandList[i].value === 'LOW_POWER') {
                this.mode = 'LOW_POWER';
+               roverStatus.mode = 'LOW_POWER';
                commandResult['completed'] = true;
             } else if (commandList[i].value === 'NORMAL') {
                this.mode = 'NORMAL';
+               roverStatus.mode = 'NORMAL';
+               //change to be general - commandList[i].value;
                commandResult['completed'] = true;
             }
 
@@ -68,8 +71,11 @@ class Rover {
 
             if (this.mode === 'LOW_POWER') {
                commandResult['completed'] = false;
-            } else if (this.mode === 'NORMAL') {
+            } 
+            
+            if (this.mode === 'NORMAL') {
                this.position = commandList[i].value;
+               roverStatus.position = commandList[i].value;
                commandResult['completed'] = true;
             }
             
