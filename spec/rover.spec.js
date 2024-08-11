@@ -45,7 +45,7 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     let testStatusCheck = testRover.receiveMessage(testMessage).results;
    
-  //Could be refactored by modifying 2nd expect/line 54 to include the properties mentioned in the 3-5th expect statements
+  //Could refactor by modifying 2nd expect/line 50 to include the properties mentioned in the 3-5th expect statements
     expect(typeof testStatusCheck[0]['roverStatus']).toEqual('object');
     expect(testStatusCheck[0]).toEqual(expect.objectContaining({roverStatus: expect.any(Object)}));
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); 
