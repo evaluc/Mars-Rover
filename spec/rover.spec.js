@@ -98,6 +98,14 @@ describe("Rover class", function() {
   });
   //Test 13
   test("responds with the position for the move command", function() {
+    let testMoveCommand = [new Command('MOVE', 1000)];
+    let testMoveMessage = new Message('Check MOVE response', testMoveCommand);
+    let testRover = new Rover(98382);
+
+    let checkMovedRover = testRover.receiveMessage(testMoveMessage);
+
+    expect(checkMovedRover.results[0]['completed']).toEqual(true);
+    expect(testRover.position).toEqual(testMoveCommand[0].value);
 
   });
 
