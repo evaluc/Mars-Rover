@@ -42,7 +42,24 @@ class Rover {
 
             resultsArray.push(commandResult);
             responseObj['results'] = resultsArray;
-            
+         } 
+         
+         //TODO: add error if mode change isn't low power or normal? Though seems out of scope
+
+         if (commandList[i].commandType === 'MODE_CHANGE') {
+            let commandResult = {};
+
+            if (commandList[i].value === 'LOW_POWER') {
+               this.mode = 'LOW_POWER';
+               commandResult['completed'] = true;
+            } else if (commandList[i].value === 'NORMAL') {
+               this.mode = 'NORMAL';
+               commandResult['completed'] = true;
+            }
+
+           
+            resultsArray.push(commandResult);
+            responseObj['results'] = resultsArray;
          }
          /*
          else if (commandList[i].commandType === 'MOVE') {
@@ -54,14 +71,6 @@ class Rover {
             responseObj = {message: heardMessage.name, results: resultsArray};
          }
 
-         else if (commandList[i].commandType === 'MODE_CHANGE') {
-            let commandResult = {
-               completed: true,
-            };
-
-            resultsArray.push(commandResult);
-            responseObj = {message: heardMessage.name, results: resultsArray};
-         }
          */
       }
       return responseObj;
@@ -84,3 +93,7 @@ module.exports = Rover;
 */
       //I don't think I want to name this roverStatus, 
       //I want a roverStatus object placed in the results array
+
+       /*let commandResult = {
+               completed: true,
+            };*/

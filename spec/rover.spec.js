@@ -23,13 +23,14 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     let testResponse = testRover.receiveMessage(testMessage);
 
+    //This test could be more generalized?
     expect(testResponse.message).toBe(testMessage.name);
 
   });
   //Test 9
   test("response returned by receiveMessage includes two results if two commands are sent in the message", function() {
     let testCommands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-    let testMessage = new Message('Test message with commands', testCommands);
+    let testMessage = new Message('Test message with two commands', testCommands);
     let testRover = new Rover(98382);
     let testResponse = testRover.receiveMessage(testMessage);
     
@@ -57,27 +58,35 @@ describe("Rover class", function() {
   });
   //Test 11
   test("responds correctly to the mode change command", function() {
-    let testCommandPower = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MODE_CHANGE', 'NORMAL')];
-    //let testCommandNormal = [new Command('MODE_CHANGE', 'NORMAL')];
-    let testMessagePower = new Message('Mode Change Test', testCommandPower);
-    //let testMessageNormal = new Message('Mode Change Test Normal', testCommandNormal);
+    let testCommandLowPower = [new Command('MODE_CHANGE', 'LOW_POWER')];
+    let testCommandNormalPower = [new Command('MODE_CHANGE', 'NORMAL')];
+    let testPowerCommandsSequence = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MODE_CHANGE', 'NORMAL')];
+    let testMessageLowPower = new Message('Mode Change Test Low Power', testCommandLowPower);
+    let testMessageNormalPower = new Message('Mode Change Test Normal Power', testCommandNormalPower);
+    let testMessageSequencePower = new Message('Mode Change Sequence with 2 Commands', testPowerCommandsSequence);
     let testRover = new Rover(98382);
-    let checkPower = testRover.receiveMessage(testMessagePower);
-    //let checkNormalPower = testRover.receiveMessage(testMessageNormal);
-    console.log(checkPower);
-    //console.log(checkNormalPower);
+    
+    //TODO? Check if command.value is 'LOW_POWER' or 'NORMAL' and throw error if not a valid value
 
-    expect(checkPower[0]['completed']).toEqual(true);
-    expect(checkPower[0]['roverStatus']).toHaveProperty('mode', expect('LOW_POWER'));
-    expect(checkPower[1]['completed']).toEqual(true);
-    expect(checkPower[1]['roverStatus']).toHaveProperty('mode', expect('NORMAL'));
+    //Send & validate low power command
+    let checkLowPower = testRover.receiveMessage(testMessageLowPower).results;
+    
+    expect(checkLowPower[0]['completed']).toEqual(true);
+    expect(testRover.mode).toEqual('LOW_POWER');
 
+    //Follow up, send & validate normal power command
+    let checkNormalPower = testRover.receiveMessage(testMessageNormalPower).results;
+    
+    expect(checkNormalPower[0]['completed']).toEqual(true);
+    expect(testRover.mode).toEqual('NORMAL');
+    
+    //Send & validate sequenced mode change commands
+    let checkSequencePower = testRover.receiveMessage(testMessageSequencePower).results;
 
-
-    //expect(checkNormalPower[1]).;
-    //expect(checkNormalPower[1]).;
-
-
+    expect(checkSequencePower[0]['completed']).toEqual(true);
+    expect(checkSequencePower[1]['completed']).toEqual(true);
+    expect(testRover.mode).toEqual('NORMAL');
+    
   });
   //Test 12
   test("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
