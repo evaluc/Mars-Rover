@@ -49,12 +49,13 @@ describe("Rover class", function() {
     let testRover = new Rover(98382);
     let testStatusCheck = testRover.receiveMessage(testMessage).results;
    
-  //TODO - Refactor these into One Test by modifying line 53 to include lines 54-56 in expectations
+  //Could be refactored by modifying 2nd expect/line 54 to include the properties mentioned in the 3-5th expect statements
     expect(typeof testStatusCheck[0]['roverStatus']).toEqual('object');
     expect(testStatusCheck[0]).toEqual(expect.objectContaining({roverStatus: expect.any(Object)}));
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('mode', 'NORMAL' || 'LOW_POWER'); 
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('generatorWatts', expect.any(Number));
     expect(testStatusCheck[0]['roverStatus']).toHaveProperty('position', expect.any(Number));
+
   });
   //Test 11
   test("responds correctly to the mode change command", function() {
@@ -86,10 +87,21 @@ describe("Rover class", function() {
     expect(checkSequencePower[0]['completed']).toEqual(true);
     expect(checkSequencePower[1]['completed']).toEqual(true);
     expect(testRover.mode).toEqual('NORMAL');
-    
+
   });
   //Test 12
   test("responds with a false completed value when attempting to move in LOW_POWER mode", function() {
+    let testDrainedMoveCommand = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('MOVE', 1000)];
+    let testDrainedMoveMessage = new Message('Change to low power, attempt to move', testDrainedMoveCommand);
+    let testRover = new Rover(98382);
+    
+    let checkDrainedRover = testRover.receiveMessage(testDrainedMoveMessage);
+    // Alternate access method?
+    // let checkDrainedRover = testRover.receiveMessage(testDrainedMoveMessage).results;
+    // expect(checkDrainedRover[1]['completed']).toEqual(false);
+    expect(checkDrainedRover.results[1]['completed']).toEqual(false);
+
+
 
   });
   //Test 13
