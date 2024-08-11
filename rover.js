@@ -37,8 +37,8 @@ class Rover {
          //Status Check:
          if (commandList[i].commandType === 'STATUS_CHECK') {
             let commandResult = {
-               completed: true,
-               roverStatus: roverStatus
+               roverStatus: roverStatus,
+               completed: true
             };
 
             resultsArray.push(commandResult);
@@ -68,7 +68,10 @@ class Rover {
 
             if (this.mode === 'LOW_POWER') {
                commandResult['completed'] = false;
-            } 
+            } else if (this.mode === 'NORMAL') {
+               this.position = commandList[i].value;
+               commandResult['completed'] = true;
+            }
             
             resultsArray.push(commandResult);
             responseObj['results'] = resultsArray;
